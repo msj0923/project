@@ -12,9 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {
@@ -51,7 +54,7 @@ public class IndexController {
     @GetMapping("/")
     public String index() {
 
-        return "index";
+        return "member_Page";
     }
 
     //OAuth 로그인을 해도 PrincipalDetails
@@ -78,16 +81,34 @@ public class IndexController {
         return "joinForm";
     }
 
+
+    @GetMapping("/mainForm")
+    public String main(User user){
+        return "mainForm";
+    }
+
+    @PostMapping("/logout")
+    public String logout(User user, Model model,HttpSession session) throws Exception{
+        model.addAttribute("message","로그아웃 되었습니다.");
+        model.addAttribute("searchUrl", "/mainForm");
+        return "message";
+    }
+
+
     @PostMapping("/join")
-    public String join(User user) {
+    public String join(User user, Model model) {
         System.out.println(user);
         user.setRole("ROLE_USER");
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
         userRepository.save(user); //회원가입 굿. 비밀번호:1234 -> 시큐리티로 로그인 할 수 없다. 이유는 패스워드가 암호화가 안되어서.
-        return "redirect:/loginForm";
+        model.addAttribute("message","회원가입이 되었습니다.");
+        model.addAttribute("searchUrl", "/loginForm");
+        return "message";
     }
+
+
 
     //회원관리 페이지 만들기 최적화!!
     @Secured("ROLE_ADMIN") //어드민 권한이 있는 사람만 가능

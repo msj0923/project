@@ -48,6 +48,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
                 //구글 로그인이 완료된 뒤 후처리 필요. Tip 코드X (액세스토큰 + 사용자 프로필정보 O)
+             http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/mainForm");
+
+        }
+
 
     }
-}
+
