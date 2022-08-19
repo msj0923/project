@@ -88,7 +88,7 @@ public class IndexController {
     }
 
     @PostMapping("/logout")
-    public String logout(User user, Model model,HttpSession session) throws Exception{
+    public String logout(User user, Model model, HttpSession session) throws Exception{
         model.addAttribute("message","로그아웃 되었습니다.");
         model.addAttribute("searchUrl", "/mainForm");
         return "message";
@@ -107,7 +107,6 @@ public class IndexController {
         model.addAttribute("searchUrl", "/loginForm");
         return "message";
     }
-
 
 
     //회원관리 페이지 만들기 최적화!!
