@@ -70,6 +70,8 @@ public class IndexController {
         return "adminPage";
     }
 
+
+
     // SecurityConfig 파일 생성 후 작동 안함
     @GetMapping("/loginForm")
     public String loginForm() {
@@ -85,6 +87,7 @@ public class IndexController {
     public String index(User user) {
         return "mainForm";
     }
+
 
     @GetMapping("/logoutForm")
     public String main(User user, Model model){
