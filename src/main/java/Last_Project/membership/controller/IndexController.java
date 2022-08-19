@@ -60,14 +60,14 @@ public class IndexController {
     //OAuth 로그인을 해도 PrincipalDetails
     //일반 로그인을 해도 PrincipalDetails
     @GetMapping("/user")
-    public @ResponseBody String user( @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String user( @AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println("principalDetails :" + principalDetails.getUser());
-        return "user";
+        return "userInfo";
     }
 
     @GetMapping("/admin")
-    public @ResponseBody String admin() {
-        return "admin";
+    public String admin() {
+        return "adminPage";
     }
 
     // SecurityConfig 파일 생성 후 작동 안함
@@ -81,17 +81,20 @@ public class IndexController {
         return "joinForm";
     }
 
-
     @GetMapping("/mainForm")
-    public String main(User user){
+    public String index(User user) {
         return "mainForm";
     }
 
-    @PostMapping("/logout")
-    public String logout(User user, Model model, HttpSession session) throws Exception{
+    @GetMapping("/logoutForm")
+    public String main(User user, Model model){
         model.addAttribute("message","로그아웃 되었습니다.");
         model.addAttribute("searchUrl", "/mainForm");
         return "message";
+    }
+
+    @PostMapping("/logout")
+    public void logout(User user, Model model, HttpSession session) throws Exception{
     }
 
 
