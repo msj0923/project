@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public class UserRequestDto {
+    public class MemberRequestDto {
 
         @NotBlank(message = "아이디는 필수 입력 값입니다.")
         private String member_username;

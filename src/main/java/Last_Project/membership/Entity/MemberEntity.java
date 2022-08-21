@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Entity
-public class UserEntity {
+public class MemberEntity {
 
     private int member_num; //유저 숫자
 
